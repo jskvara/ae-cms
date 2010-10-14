@@ -36,6 +36,9 @@ Obousměrnou asociaci použijeme pokud chceme přistupovat k entitám navzájem 
 public class ContactInfo {
 	@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key key;
+	
+	@Persistent
+	private Employee employee;
 }
 
 @PersistenceCapable
@@ -43,7 +46,8 @@ public class Employee {
 @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key key;
 	
-	@Persistent
+	@Persistent(mappedBy = "employee")
 	private List<ContactInfo> contactInfoSets;
 }
 }}}
+U entity `ContactInfo` přidáme property `Employee` a ke kolekci v druhé entitě přidáme mapování: `(mappedBy = "jmenoEntity")`.
