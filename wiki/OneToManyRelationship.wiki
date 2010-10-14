@@ -29,3 +29,21 @@ Získání `ContactInfo`:
 Musíme použít `size()` aby byly položky dostupné i po uzavření transakce.
 
 ==Vlastněná obousměrná asociace (Owned bidirectional relationship)==
+Obousměrnou asociaci použijeme pokud chceme přistupovat k entitám navzájem (z entity `Employee` chceme získat `ContactInfo` a z entity `ContactInfo` chceme získat `Employee`).
+
+{{{
+@PersistenceCapable
+public class ContactInfo {
+	@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+}
+
+@PersistenceCapable
+public class Employee {
+@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+	
+	@Persistent
+	private List<ContactInfo> contactInfoSets;
+}
+}}}
