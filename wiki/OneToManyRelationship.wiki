@@ -60,6 +60,7 @@ Získání `Employee` z entity `ContactInfo`:
 Obě operace musí být provedeny v transakci a aby se entita `Employee` byla použitelná i po uzavření transakce je nutné na ní zavolat getter.
 
 ==Nevlastněná asociace (Unowned relationship)==
+Místo kolekce entit použijeme kolekci klíčů entit.
 {{{
 @PersistenceCapable
 public class ContactInfo {
