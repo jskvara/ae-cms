@@ -20,3 +20,12 @@ public class Employee {
 	private List<ContactInfo> contactInfoSets;
 }
 }}}
+
+Získání ContactInfo:
+{{{
+	Employee e = entityManager.find(employee.class, id);
+	e.getContactInfoSets().size();
+}}}
+Musíme použít `size()` aby byly položky dostupné i po uzavření transakce.
+
+==Vlastněná obousměrná asociace (Owned bidirectional relationship)==
