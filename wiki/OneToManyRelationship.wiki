@@ -61,6 +61,36 @@ Obě operace musí být provedeny v transakci a aby se entita `Employee` byla po
 
 ==Nevlastněná asociace (Unowned relationship)==
 Místo kolekce entit použijeme kolekci klíčů entit.
+Toto můžeme implementovat těmito způsoby:
+
+===Klíč v potomkovi===
+{{{
+@PersistenceCapable
+public class ContactInfo {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+        
+        private Key employeeKey;
+}
+
+@PersistenceCapable
+public class Employee {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+}
+}}}
+Získání `Employee` z entity `ContactInfo`:
+{{{
+        Employee e = entityManager.find(Employee.class, id);
+
+        Query query = pm.newQuery(ContactInfo.class);
+        query.setFilter("employeeKey == employeeKeyParam");
+        query.declareParameters("Key employeeKeyParam");
+
+        List<ContactInfo> results = (List<ContactInfo>) query.execute(e.getKey());
+}}}
+
+===a===
 {{{
 @PersistenceCapable
 public class ContactInfo {
@@ -74,6 +104,6 @@ public class Employee {
         private Key key;
         
         @Persistent
-        private Set<Key> contactInfo;
+        private List<Key> contactInfo;
 }
 }}}
