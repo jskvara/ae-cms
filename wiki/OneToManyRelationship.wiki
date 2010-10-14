@@ -79,7 +79,7 @@ public class Employee {
         private Key key;
 }
 }}}
-Získání `Employee` z entity `ContactInfo`:
+Získání kolekce `ContactInfo` podle klíče z entity `Employee`:
 {{{
         Employee e = entityManager.find(Employee.class, id);
 
