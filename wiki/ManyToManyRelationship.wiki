@@ -24,3 +24,16 @@ public class Employee {
         private List<ContactInfo> contactInfos;
 }
 }}}
+
+Musíme se sami postarat o nastavení asociací:
+{{{
+public void addContactInfo(ContactInfo contactInfo) {
+    contactInfos.add(contactInfo.getKey());
+    contactInfo.getEmployees().add(getKey());
+}
+
+public void removeContactInfo(ContactInfo contactInfo) {
+    contactInfos.remove(contactInfo.getKey());
+    contactInfo.getContactInfos().remove(getKey());
+}
+}}}
