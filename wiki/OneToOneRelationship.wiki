@@ -19,7 +19,9 @@ public class Employee {
 	
 	@Persistent
 	private ContactInfo contactInfo;
-<wiki:comment>	
+}
+}}}
+<wiki:comment>
 	ContactInfo getContactInfo() {
 		return contactInfo;
 	}
@@ -28,8 +30,6 @@ public class Employee {
 		this.contactInfo = contactInfo;
 	}
 </wiki:comment>
-}
-}}}
 Důležité je zde, že `Employee` má parametr typu `ContactInfo`.
 
 Získání `ContactInfo`:
