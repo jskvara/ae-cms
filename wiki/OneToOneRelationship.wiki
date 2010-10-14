@@ -19,7 +19,7 @@ public class Employee {
 	
 	@Persistent
 	private ContactInfo contactInfo;
-	
+<wiki:comment>	
 	ContactInfo getContactInfo() {
 		return contactInfo;
 	}
@@ -27,6 +27,7 @@ public class Employee {
  	void setContactInfo(ContactInfo contactInfo) {
 		this.contactInfo = contactInfo;
 	}
+</wiki:comment>
 }
 }}}
 Důležité je zde, že `Employee` má parametr typu `ContactInfo`.
