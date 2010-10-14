@@ -51,3 +51,7 @@ public class Employee {
 }
 }}}
 U entity `ContactInfo` přidáme property `Employee` a ke kolekci v druhé entitě přidáme mapování: `(mappedBy = "jmenoEntity")`.
+{{{
+	ContactInfo ci = entityManager.find(Contact.class, id);
+	ci.getEmployee().getId();
+}}}
