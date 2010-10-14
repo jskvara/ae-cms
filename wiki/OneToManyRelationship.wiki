@@ -89,6 +89,7 @@ Získání kolekce `ContactInfo` podle klíče z entity `Employee`:
 
         List<ContactInfo> results = (List<ContactInfo>) query.execute(e.getKey());
 }}}
+Jedním dotazem vybereme všechny entity `ContactInfo`.
 
 ===Kolekce klíčů v předkovi===
 {{{
@@ -107,10 +108,37 @@ public class Employee {
         private List<Key> contactInfos;
 }
 }}}
-Získání kolekce `ContactInfo` podle klíče z entity `Employee`:
+Získání `ContactInfo` pro každý klíč z kolekce:
 {{{
         Employee e = entityManager.find(Employee.class, id);
         for (Key contactInfoKey : e.getContactInfos()) {
                 ContactInfo ci = entityManager.find(ContactInfo.class, contactInfoKey);
         }
 }}}
+Pro každý klíč z kolekce se provede jeden dotaz, tento způsob je méně efektivní.
+
+===Kolekce klíčů v předkovi===
+{{{
+@PersistenceCapable
+public class ContactInfo {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+}
+
+@PersistenceCapable
+public class Employee {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+        
+        @Persistent
+        private List<Key> contactInfos;
+}
+}}}
+Získání `ContactInfo` pro každý klíč z kolekce:
+{{{
+        Employee e = entityManager.find(Employee.class, id);
+        for (Key contactInfoKey : e.getContactInfos()) {
+                ContactInfo ci = entityManager.find(ContactInfo.class, contactInfoKey);
+        }
+}}}
+Pro každý klíč z kolekce se provede jeden dotaz, tento způsob je méně efektivní.
