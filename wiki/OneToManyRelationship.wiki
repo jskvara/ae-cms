@@ -17,14 +17,14 @@ public class Employee {
 	private Key key;
 	
 	@Persistent
-	private List<ContactInfo> contactInfoSets;
+	private List<ContactInfo> contactInfos;
 }
 }}}
 
 Získání `ContactInfo`:
 {{{
 	Employee e = entityManager.find(employee.class, id);
-	e.getContactInfoSets().size();
+	e.getContactInfos().size();
 }}}
 Musíme použít `size()` aby byly položky dostupné i po uzavření transakce.
 
@@ -47,7 +47,7 @@ public class Employee {
 	private Key key;
 	
 	@Persistent(mappedBy = "employee")
-	private List<ContactInfo> contactInfoSets;
+	private List<ContactInfo> contactInfos;
 }
 }}}
 U entity `ContactInfo` přidáme property `Employee` a ke kolekci v druhé entitě přidáme mapování: `(mappedBy = "jmenoEntity")`.
