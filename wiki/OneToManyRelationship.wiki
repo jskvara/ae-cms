@@ -117,7 +117,8 @@ Získání `ContactInfo` pro každý klíč z kolekce:
 }}}
 Pro každý klíč z kolekce se provede jeden dotaz, tento způsob je méně efektivní.
 
-===Kolekce klíčů v předkovi===
+===Vztahová entita===
+Toto se hodí pro složitější struktury nebo pokud nám jde hlavně o klíče a ne celé entity.
 {{{
 @PersistenceCapable
 public class ContactInfo {
@@ -133,12 +134,14 @@ public class Employee {
         @Persistent
         private List<Key> contactInfos;
 }
+
+@PersistenceCapable
+public class Relationship {
+        @Persistent
+        private Key employeeKey;
+        
+        @Persistent
+        private Key contactInfoKey;
+}
 }}}
-Získání `ContactInfo` pro každý klíč z kolekce:
-{{{
-        Employee e = entityManager.find(Employee.class, id);
-        for (Key contactInfoKey : e.getContactInfos()) {
-                ContactInfo ci = entityManager.find(ContactInfo.class, contactInfoKey);
-        }
-}}}
-Pro každý klíč z kolekce se provede jeden dotaz, tento způsob je méně efektivní.
+Výběr z databáze je stejný jako u předchozího případu.
