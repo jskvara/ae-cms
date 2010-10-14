@@ -1,0 +1,22 @@
+=Asociace Jedna-k-Více (One-to-Many relationship)=
+
+Tuto asociaci použijeme pokud chceme spojit jednu entitu s více (1:N).
+
+==Vlastněná asociace (Owned relationship)==
+Stejné jako u asociace 1:1, akorát místo ContactInfo použijeme kolekci.
+{{{
+@PersistenceCapable
+public class ContactInfo {
+	@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+}
+
+@PersistenceCapable
+public class Employee {
+@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+	
+	@Persistent
+	private List<ContactInfo> contactInfoSets;
+}
+}}}
