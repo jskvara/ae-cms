@@ -1,5 +1,3 @@
-#summary Asociace Jedna-k-jedné (One-to-One relationship)
-
 =Asociace Jedna-k-jedné (One-to-One relationship)=
 
 Tuto asociaci použijeme pokud chceme spojit dvě entity (1:1).
