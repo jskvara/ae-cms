@@ -90,7 +90,7 @@ Získání kolekce `ContactInfo` podle klíče z entity `Employee`:
         List<ContactInfo> results = (List<ContactInfo>) query.execute(e.getKey());
 }}}
 
-===a===
+===Kolekce klíčů v předkovi===
 {{{
 @PersistenceCapable
 public class ContactInfo {
@@ -104,6 +104,13 @@ public class Employee {
         private Key key;
         
         @Persistent
-        private List<Key> contactInfo;
+        private List<Key> contactInfos;
 }
+}}}
+Získání kolekce `ContactInfo` podle klíče z entity `Employee`:
+{{{
+        Employee e = entityManager.find(Employee.class, id);
+        for (Key contactInfoKey : e.getContactInfos()) {
+                ContactInfo ci = entityManager.find(ContactInfo.class, contactInfoKey);
+        }
 }}}
