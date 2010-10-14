@@ -1,0 +1,61 @@
+#summary Asociace Jedna-k-jedné (One-to-One relationship)
+
+=Asociace Jedna-k-jedné (One-to-One relationship)=
+
+Tuto asociaci použijeme pokud chceme spojit dvě entity (1:1).
+
+==Vlastněná asociace (Owned relationship)==
+
+Objekty jsou spojeny nativně a o spojení se stará JDO. Vlastněné asociace jsou ukládány ve stejné skupině entit.
+{{{
+@PersistenceCapable
+public class ContactInfo {
+	@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+}
+
+@PersistenceCapable
+public class Employee {
+	@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+	
+	@Persistent
+	private ContactInfo contactInfo;
+	
+	ContactInfo getContactInfo() {
+		return contactInfo;
+	}
+	
+ 	void setContactInfo(ContactInfo contactInfo) {
+		this.contactInfo = contactInfo;
+	}
+}
+}}}
+Důležité je zde, že `Employee` má parametr typu `ContactInfo`.
+
+Získání `ContactInfo`:
+{{{
+	Employee e = entityManager.find(Employee.class, id);
+	ContactInfo ci = e.getContactInfo();
+}}}
+
+==Nevlastněná asociace (Unowned relationship)==
+
+Nevlastněné asociace použijeme pokud se chceme o asociace starat sami. JDO nekontroluje referenční integritu a  všechna spojení musíme zařídit sami. Výhoda spočívá v ukládání entit do nezávislých skupin entit, což může být výhodné, pokud se entity mění velmi často. Více zde: [http://code.google.com/appengine/docs/java/datastore/relationships.html#Unowned_Relationships http://code.google.com/appengine/docs/java/datastore/relationships.html#Unowned_Relationships]
+
+{{{
+@PersistenceCapable
+public class Person {
+	@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+	
+	@Persistent
+	private Key favoriteFood;
+}
+
+@PersistenceCapable
+public class Food {
+	@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+}
+}}}
