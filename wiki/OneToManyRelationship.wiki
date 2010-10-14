@@ -3,7 +3,7 @@
 Tuto asociaci použijeme pokud chceme spojit jednu entitu s více (1:N).
 
 ==Vlastněná asociace (Owned relationship)==
-Stejné jako u asociace 1:1, akorát místo ContactInfo použijeme kolekci.
+Stejné jako u asociace 1:1, akorát místo `ContactInfo` použijeme kolekci.
 {{{
 @PersistenceCapable
 public class ContactInfo {
@@ -21,7 +21,7 @@ public class Employee {
 }
 }}}
 
-Získání ContactInfo:
+Získání `ContactInfo`:
 {{{
 	Employee e = entityManager.find(employee.class, id);
 	e.getContactInfoSets().size();
