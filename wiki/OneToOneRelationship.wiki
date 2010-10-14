@@ -43,18 +43,18 @@ Nevlastněné asociace použijeme pokud se chceme o asociace starat sami. JDO ne
 
 {{{
 @PersistenceCapable
+public class ContactInfo {
+	@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+}
+
+@PersistenceCapable
 public class Employee {
 	@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key key;
 	
 	@Persistent
 	private Key contactInfo;
-}
-
-@PersistenceCapable
-public class ContactInfo {
-	@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key key;
 }
 }}}
 Zde použijeme místo typu `ContactInfo` klíč entity.
