@@ -1,0 +1,26 @@
+=Asociace Více-k-Více (Many-to-Many relationship)=
+
+Tuto asociaci použijeme pokud chceme spojit více entit s více (M:N).
+Tento typ lze implementovat pouze nevlastněnou asociací.
+Lze toho docílit těmito způsoby:
+
+==Duplikace asociací==
+{{{
+@PersistenceCapable
+public class ContactInfo {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+        
+        @Persistent
+        private List<Employee> employees;
+}
+
+@PersistenceCapable
+public class Employee {
+@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+        
+        @Persistent
+        private List<ContactInfo> contactInfos;
+}
+}}}
