@@ -81,6 +81,7 @@ Získání všech potomků:
 }}}
 
 ==Duplikace asociací==
+Toto je nejlepší řešení pokud potřebujeme získávat entity z obou stran asociace.
 {{{
 @PersistenceCapable
 public class ContactInfo {
