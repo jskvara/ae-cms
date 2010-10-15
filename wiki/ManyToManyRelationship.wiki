@@ -4,6 +4,80 @@ Tuto asociaci použijeme pokud chceme spojit více entit s více (M:N).
 Tento typ lze implementovat pouze nevlastněnou asociací.
 Lze toho docílit těmito způsoby:
 
+==Vztahová entita==
+Tento přístup se používá u relačních databází. Kvůli absenci konstrukce `join` ale musíme použít více dotazů do databáze.
+
+@PersistenceCapable
+public class ContactInfo {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+}
+
+@PersistenceCapable
+public class Employee {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+        
+        @Persistent
+        private List<Key> contactInfos;
+}
+
+@PersistenceCapable
+public class Relationship {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+        
+        @Persistent
+        private Key employeeKey;
+        
+        @Persistent
+        private Key contactInfoKey;
+}
+Klíč u spojovací entity není nutný, ale může být užitečné přidat další sloupce jako například datum.
+
+Výběr z databáze je stejný jako u předchozího případu.
+{{{
+        Employee e = entityManager.find(Employee.class, id);
+
+        Query q = pm.newQuery(Relationship.class);
+        query.setFilter("employeeKey == employeeKeyParam");
+        query.declareParameters("Key employeeKeyParam");
+        List<Key> ciKeys = (List<ContactInfo>) query.execute(e.getKey());
+        
+        for (Key ciKey : ciKeys) {
+                ContactInfo ci = entityManager.find(ContactInfo.class, ciKey);
+        }
+}}}
+Je potřeba dotaz pro každou entitu `ContactInfo`.
+
+==Kolekce klíčů v předkovi==
+Toto řešení je vhodné, pokud chceme často získávat všechny potomky (`ContactInfo`). 
+{{{
+@PersistenceCapable
+public class ContactInfo {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+        
+        @Persistent
+        private List<Key> employees;
+}
+
+@PersistenceCapable
+public class Employee {
+@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+}
+}}}
+Získání všech potomků:
+{{{
+        Employee e = entityManager.find(Employee.class, id);
+        
+        Query q = pm.newQuery(ContactInfo.class);
+        query.setFilter("employeeKey == employeeKeyParam");
+        query.declareParameters("Key employeeKeyParam");
+        List<ContactInfo> ci = (List<ContactInfo>) query.execute(e.getKey());
+}}}
+
 ==Duplikace asociací==
 {{{
 @PersistenceCapable
@@ -47,8 +121,9 @@ Získání je stejné na obou stranách:
         query.declareParameters("Key employeeKeyParam");
 
         List<ContactInfo> results = (List<ContactInfo>) query.execute(e.getEmployees());
+}}}
 
-
+{{{
         ContactInfo ci = entityManager.find(ContactInfo.class, id);
 
         Query query = pm.newQuery(Employee.class);
