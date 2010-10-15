@@ -7,6 +7,7 @@ Lze toho docílit těmito způsoby:
 ==Vztahová entita==
 Tento přístup se používá u relačních databází. Kvůli absenci konstrukce `join` ale musíme použít více dotazů do databáze.
 
+{{{
 @PersistenceCapable
 public class ContactInfo {
         @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -33,6 +34,7 @@ public class Relationship {
         @Persistent
         private Key contactInfoKey;
 }
+}}}
 Klíč u spojovací entity není nutný, ale může být užitečné přidat další sloupce jako například datum.
 
 Výběr z databáze je stejný jako u předchozího případu.
