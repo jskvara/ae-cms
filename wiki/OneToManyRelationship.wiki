@@ -23,10 +23,12 @@ public class Employee {
 
 Získání `ContactInfo`:
 {{{
-	Employee e = entityManager.find(employee.class, id);
-	e.getContactInfos().size();
+	Employee e = pm.getObjectById(Employee.class, key);
+	List<ContactInfo> contactInfos = e.getContactInfos();
 }}}
+<wiki:comment>
 Musíme použít `size()` aby byly položky dostupné i po uzavření transakce.
+</wiki:comment>
 
 ==Vlastněná obousměrná (Owned bidirectional) asociace==
 Obousměrnou asociaci použijeme pokud chceme přistupovat k entitám navzájem (z entity `Employee` chceme získat `ContactInfo` a z entity `ContactInfo` chceme získat `Employee`).
