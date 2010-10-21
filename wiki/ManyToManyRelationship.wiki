@@ -1,4 +1,4 @@
-=Asociace Více-k-Více (Many-to-Many relationship)=
+=Asociace Many-to-Many=
 
 Tuto asociaci použijeme pokud chceme spojit více entit s více (M:N).
 Tento typ lze implementovat pouze nevlastněnou asociací.
