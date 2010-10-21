@@ -1,0 +1,4 @@
+= Užitečné odkazy =
+
+ * Oficiální dokumentace:
+http://code.google.com/appengine/docs/java/gettingstarted/
