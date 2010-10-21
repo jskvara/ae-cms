@@ -54,10 +54,10 @@ public class Employee {
 }}}
 U entity `ContactInfo` přidáme property `Employee` a ke kolekci v druhé entitě přidáme mapování: `(mappedBy = "jmenoEntity")`.
 
-Získání `Employee` z entity `ContactInfo`:
+Získání druhé strany asociace, chceme `Employee` z entity `ContactInfo`:
 {{{
 	ContactInfo ci = entityManager.find(Contact.class, id);
-	ci.getEmployee().getId();
+	Employee e = ci.getEmployee();
 }}}
 Obě operace musí být provedeny v transakci a aby se entita `Employee` byla použitelná i po uzavření transakce je nutné na ní zavolat getter.
 
