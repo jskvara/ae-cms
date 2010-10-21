@@ -30,11 +30,11 @@ public class Employee {
 		this.contactInfo = contactInfo;
 	}
 </wiki:comment>
-Důležité je zde, že `Employee` má parametr typu `ContactInfo`.
+Důležité je zde, že `Employee` má parametr typu `ContactInfo`. Aby toto spojení fungovalo primární klíč musí být typu `Key`
 
 Získání `ContactInfo`:
 {{{
-	Employee e = entityManager.find(Employee.class, id);
+	Employee e = pm.getObjectById(Employee.class, key);
 	ContactInfo ci = e.getContactInfo();
 }}}
 
