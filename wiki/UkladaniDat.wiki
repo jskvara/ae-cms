@@ -2,7 +2,7 @@
 
 =Ukládání dat=
 <wiki:comment>
-Základní informace o JDO, jdoconfig.xml, Relace One-to-One, Many-to-One, Many-to-Many a rozdily mezi JPA a JDO
+Základní informace o JDO, jdoconfig.xml a rozdily mezi JPA a JDO
 </wiki:comment>
 
 ==Persistence Manager Factory==
