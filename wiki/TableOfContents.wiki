@@ -3,6 +3,6 @@
  * [Welcome Úvod]
  * [UkladaniDat Ukládání dat]
  * [OneToOneRelationship Asociace One-to-One]
- * [ManyToOneRelationship Asociace Many-to-One]
+ * [OneToManyRelationship Asociace One-to-Many]
  * [ManyToManyRelationship Asociace Many-to-Many]
  * [UzitecneOdkazy Užitečné odkazy]
