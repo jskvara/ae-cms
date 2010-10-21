@@ -1,0 +1,5 @@
+= Úvod =
+
+<wiki:comment>
+Co je GAE, proc, omezeni, deploy ...
+</wiki:comment>
