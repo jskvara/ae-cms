@@ -1,0 +1,27 @@
+#summary Ukládání dat
+
+=Ukládání dat=
+<wiki:comment>
+Základní informace o JDO, jdoconfig.xml, Relace One-to-One, Many-to-One, Many-to-Many a rozdily mezi JPA a JDO
+</wiki:comment>
+
+==Persistence Manager Factory==
+Persistence Manager Factory je třída pro získání instance Persistence Manageru podle konfigurace.
+Parametr metody `getPersistenceManagerFactory` je jméno definované u elementu `<persistence-manager-factory>` v souboru `jdoconfig.xml`.
+
+{{{
+public final class PMF {
+    private static final PersistenceManagerFactory pmfInstance =
+        JDOHelper.getPersistenceManagerFactory("transactions-optional");
+
+    private PMF() {}
+
+    public static PersistenceManagerFactory get() {
+        return pmfInstance.getPersistenceManager();
+    }
+}
+}}}
+Získání instance:
+{{{
+    PersistenceManager pm = PMF.get().getPersistenceManager();
+}}}
