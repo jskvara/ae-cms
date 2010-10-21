@@ -16,12 +16,12 @@ public final class PMF {
 
     private PMF() {}
 
-    public static PersistenceManagerFactory get() {
+    public static PersistenceManager get() {
         return pmfInstance.getPersistenceManager();
     }
 }
 }}}
 Získání instance:
 {{{
-    PersistenceManager pm = PMF.get().getPersistenceManager();
+    PersistenceManager pm = PMF.get();
 }}}
