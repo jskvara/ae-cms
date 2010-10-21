@@ -3,9 +3,9 @@
 Google guice je jednoduchý Dependency Injection framework. Jeho použití je jednoduché.
 ==Instalace==
 Do složky `web/WEB-INF/lib` nahrajte soubory:
- * javax.inject.jar
- * aopalliance.jar
- * guice-snapshot.jar (Pro app engine musí být zbuildována nejnovější vereze)
+ * [http://code.google.com/p/ae-cms/downloads/detail?name=javax.inject.jar javax.inject.jar]
+ * [http://code.google.com/p/ae-cms/downloads/detail?name=aopalliance.jar aopalliance.jar]
+ * [http://code.google.com/p/ae-cms/downloads/detail?name=guice-snapshot.jar guice-snapshot.jar] (Pro app engine musí být zbuildována nejnovější vereze)
 
 Konfigurace je běžná třída, která dědí od `AbstractModule`, zde nastavíme k rozhraním jejich implementace:
 {{{
