@@ -2,7 +2,8 @@
 
  * [Welcome Úvod]
  * [UkladaniDat Ukládání dat]
- * [OneToOneRelationship Asociace One-to-One]
- * [OneToManyRelationship Asociace One-to-Many]
- * [ManyToManyRelationship Asociace Many-to-Many]
+  * [OneToOneRelationship Asociace One-to-One]
+  * [OneToManyRelationship Asociace One-to-Many]
+  * [ManyToManyRelationship Asociace Many-to-Many]
+ * [GoogleGuice Google guice]
  * [UzitecneOdkazy Užitečné odkazy]
