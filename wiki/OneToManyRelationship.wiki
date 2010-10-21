@@ -28,7 +28,7 @@ Získání `ContactInfo`:
 }}}
 Musíme použít `size()` aby byly položky dostupné i po uzavření transakce.
 
-==Vlastněná obousměrná asociace (Owned bidirectional relationship)==
+==Vlastněná obousměrná (Owned bidirectional) asociace==
 Obousměrnou asociaci použijeme pokud chceme přistupovat k entitám navzájem (z entity `Employee` chceme získat `ContactInfo` a z entity `ContactInfo` chceme získat `Employee`).
 
 {{{
