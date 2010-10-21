@@ -1,5 +1,3 @@
-#summary Ukládání dat
-
 =Ukládání dat=
 <wiki:comment>
 Základní informace o JDO, jdoconfig.xml a rozdily mezi JPA a JDO
