@@ -2,7 +2,7 @@
 
 Tuto asociaci použijeme pokud chceme spojit dvě entity (1:1).
 
-==Vlastněná asociace (Owned relationship)==
+==Vlastněná (Owned) asociace==
 
 Objekty jsou spojeny nativně a o spojení se stará JDO. Vlastněné asociace jsou ukládány ve stejné skupině entit.
 {{{
@@ -38,7 +38,7 @@ Získání `ContactInfo`:
 	ContactInfo ci = e.getContactInfo();
 }}}
 
-==Nevlastněná asociace (Unowned relationship)==
+==Nevlastněná (Unowned) asociace==
 
 Nevlastněné asociace použijeme pokud se chceme o asociace starat sami. JDO nekontroluje referenční integritu a  všechna spojení musíme zařídit sami. Výhoda spočívá v ukládání entit do nezávislých skupin entit, což může být výhodné, pokud se entity mění velmi často. Více zde: [http://code.google.com/appengine/docs/java/datastore/relationships.html#Unowned_Relationships http://code.google.com/appengine/docs/java/datastore/relationships.html#Unowned_Relationships]
 
