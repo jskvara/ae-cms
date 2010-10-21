@@ -1,0 +1,8 @@
+=Google guice=
+
+Google guice je jednoduchý Dependency Injection framework.  
+
+
+==Odkazy==
+ * Oficiální dokumentace: http://code.google.com/p/google-guice/wiki/GettingStarted
+ * Jednoduchý tutoriál: http://www.javabeat.net/articles/29-introduction-to-google-guice-1.html
