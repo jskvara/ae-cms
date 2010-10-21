@@ -2,7 +2,7 @@
 
 Tuto asociaci použijeme pokud chceme spojit jednu entitu s více (1:N).
 
-==Vlastněná asociace (Owned relationship)==
+==Vlastněná (Owned) asociace==
 Stejné jako u asociace 1:1, akorát místo `ContactInfo` použijeme kolekci.
 {{{
 @PersistenceCapable
