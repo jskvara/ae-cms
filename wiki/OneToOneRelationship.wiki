@@ -1,4 +1,4 @@
-=Asociace Jedna-k-jedné (One-to-One relationship)=
+=Asociace One-to-One=
 
 Tuto asociaci použijeme pokud chceme spojit dvě entity (1:1).
 
