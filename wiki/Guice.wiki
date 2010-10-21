@@ -1,7 +1,23 @@
 =Google guice=
 
-Google guice je jednoduchý Dependency Injection framework.  
+Google guice je jednoduchý Dependency Injection framework. Jeho použití je jednoduché.
 
+Konfigurace je běžná třída, která dědí od `AbstractModule`, zde nastavíme k rozhraním jejich implementace:
+{{{
+public class GuiceModule extends AbstractModule {
+    bind(EntityDAO.class).to(EntityDAOImpl.class);
+}
+}}}
+Ve třídě, kde chceme Dependecy Injection použít stačí jen přidat anotaci:
+{{{
+    @Inject
+    EntityDAO entityDAO;
+}}}
+A výslednou třídu se všemi závislostmi získáme následovně:
+{{{
+    Injector injector = Guice.createInjector(new GuiceModule());
+    EntityService entityService = injector.getInstance(EntityService.class);
+}}}
 
 ==Odkazy==
  * Oficiální dokumentace: http://code.google.com/p/google-guice/wiki/GettingStarted
