@@ -55,13 +55,13 @@ public class Employee {
 	private Key key;
 	
 	@Persistent
-	private Key contactInfo;
+	private Key contactInfoKey;
 }
 }}}
 Zde použijeme místo typu `ContactInfo` klíč entity.
 
 Získání `ContactInfo`:
 {{{
-	Employee e = entityManager.find(Employee.class, id);
-	ContactInfo ci = entityManager.find(ContactInfo.class, e.contactInfo);
+	Employee e = pm.getObjectById(Employee.class, key);
+	ContactInfo ci = pm.getObjectById(ContactInfo.class, e.getContactInfoKey());
 }}}
