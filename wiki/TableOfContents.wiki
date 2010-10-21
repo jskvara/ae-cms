@@ -5,5 +5,5 @@
   * [OneToOneRelationship Asociace One-to-One]
   * [OneToManyRelationship Asociace One-to-Many]
   * [ManyToManyRelationship Asociace Many-to-Many]
- * [GoogleGuice Google guice]
+ * [Guice Google guice]
  * [UzitecneOdkazy Užitečné odkazy]
