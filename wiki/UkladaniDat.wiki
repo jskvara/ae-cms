@@ -6,7 +6,7 @@
 ==JDO==
 App Engine používá pro ukládání dat specifikaci [http://en.wikipedia.org/wiki/Java_Data_Objects JDO]
 
-==jdocinfig==
+==jdoconfig.xml==
 Pro nastavení se používá xml soubor `jdoconfig.xml`.
 Příklad takového souboru:
 {{{
