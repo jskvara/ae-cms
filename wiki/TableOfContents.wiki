@@ -1,6 +1,6 @@
 = Obsah =
 
- * [Welcome Úvod]
+ * [Uvod Úvod]
  * [UkladaniDat Ukládání dat]
   * [OneToOneRelationship Asociace One-to-One]
   * [OneToManyRelationship Asociace One-to-Many]
