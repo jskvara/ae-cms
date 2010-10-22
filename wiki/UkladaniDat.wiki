@@ -25,7 +25,7 @@ Příklad takového souboru:
     </persistence-manager-factory>
 </jdoconfig>
 }}}
-Více o [http://code.google.com/appengine/docs/java/datastore/usingjdo.html#Setting_Up_JDO konfiguraci].
+Více o [http://code.google.com/appengine/docs/java/datastore/usingjdo.html#Setting_Up_JDO konfiguraci JDO].
 
 ==Persistence Manager Factory==
 Persistence Manager Factory je třída pro získání instance Persistence Manageru podle konfigurace.
