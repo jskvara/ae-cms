@@ -87,7 +87,7 @@ Získání kolekce `ContactInfo` podle klíče z entity `Employee`:
 
         Query query = pm.newQuery(ContactInfo.class);
         query.setFilter("employeeKey == employeeKeyParam");
-        query.declareImports("import com.google.appengine.api.datastore.Key"); 
+        query.declareImports("import com.google.appengine.api.datastore.Key;"); 
         query.declareParameters("Key employeeKeyParam");
 
         List<ContactInfo> results = (List<ContactInfo>) query.execute(e.getKey());
