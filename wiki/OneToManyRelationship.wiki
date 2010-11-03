@@ -83,7 +83,7 @@ public class Employee {
 }}}
 Získání kolekce `ContactInfo` podle klíče z entity `Employee`:
 {{{
-        Employee e = entityManager.find(Employee.class, id);
+        Employee e = entityManager.find(Employee.class, key);
 
         Query query = pm.newQuery(ContactInfo.class);
         query.setFilter("employeeKey == employeeKeyParam");
