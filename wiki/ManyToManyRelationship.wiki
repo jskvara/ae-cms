@@ -18,9 +18,6 @@ public class ContactInfo {
 public class Employee {
         @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
         private Key key;
-        
-        @Persistent
-        private List<Key> contactInfos;
 }
 
 @PersistenceCapable
@@ -35,20 +32,24 @@ public class Relationship {
         private Key contactInfoKey;
 }
 }}}
-Klíč u spojovací entity není nutný, ale může být užitečné přidat další sloupce jako například datum.
 
 Výběr z databáze:
 {{{
-        Employee e = entityManager.find(Employee.class, id);
+        Employee e = pm.getObjectById(Employee.class, key);
 
-        Query q = pm.newQuery(Relationship.class);
+        Query query = pm.newQuery(Relationship.class);
         query.setFilter("employeeKey == employeeKeyParam");
+        query.declareImports("import com.google.appengine.api.datastore.Key;");
         query.declareParameters("Key employeeKeyParam");
-        List<Key> ciKeys = (List<ContactInfo>) query.execute(e.getKey());
+        List<Relationship> relationships = (List<Relationship>) query.execute(e.getKey());
         
-        for (Key ciKey : ciKeys) {
-                ContactInfo ci = entityManager.find(ContactInfo.class, ciKey);
+        List<ContactInfo> cis = new ArrayList<ContactInfo>();
+        for (Relationship r : relationships) {
+                ContactInfo ci = entityManager.find(ContactInfo.class, r.getContactInfoKey());
+                cis.add(ci);
         }
+        
+        return cis;
 }}}
 Je potřeba dotaz pro každou entitu `ContactInfo`.
 
