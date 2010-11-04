@@ -32,6 +32,7 @@ public class Relationship {
         private Key contactInfoKey;
 }
 }}}
+Vztahová entita může obsahovat i další užitečné sloupce, jako například datum.
 
 Výběr z databáze:
 {{{
