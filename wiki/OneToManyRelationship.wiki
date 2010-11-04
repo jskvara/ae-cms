@@ -126,29 +126,4 @@ Pro každý klíč z kolekce se provede jeden dotaz, tento způsob je méně efe
 
 ===Vztahová entita===
 Toto se hodí pro složitější struktury nebo pokud nám jde hlavně o klíče a ne celé entity.
-{{{
-@PersistenceCapable
-public class ContactInfo {
-        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-        private Key key;
-}
-
-@PersistenceCapable
-public class Employee {
-        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-        private Key key;
-        
-        @Persistent
-        private List<Key> contactInfos;
-}
-
-@PersistenceCapable
-public class Relationship {
-        @Persistent
-        private Key employeeKey;
-        
-        @Persistent
-        private Key contactInfoKey;
-}
-}}}
-Výběr z databáze je stejný jako u předchozího případu.
+Tento typ spojení je podrobně popsaný u vztahu ManyToMany: http://code.google.com/p/ae-cms/wiki/ManyToManyRelationship#Vztahová_entita
