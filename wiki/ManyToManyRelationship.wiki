@@ -53,6 +53,7 @@ Výběr z databáze:
 }}}
 Je potřeba dotaz pro každou entitu `ContactInfo`.
 
+<wiki:comment>
 ==Kolekce klíčů v předkovi==
 Toto řešení je vhodné, pokud chceme často získávat všechny potomky (`ContactInfo`). 
 {{{
@@ -62,7 +63,7 @@ public class ContactInfo {
         private Key key;
         
         @Persistent
-        private List<Key> employees;
+        private List<Key> employeeKeys;
 }
 
 @PersistenceCapable
@@ -73,14 +74,14 @@ public class Employee {
 }}}
 Získání všech potomků:
 {{{
-        Employee e = entityManager.find(Employee.class, id);
+        Employee e = pm.getObjectById(Employee.class, key);
         
-        Query q = pm.newQuery(ContactInfo.class);
-        query.setFilter("employeeKey == employeeKeyParam");
-        query.declareParameters("Key employeeKeyParam");
+        Query query = pm.newQuery(ContactInfo.class);
+        query.setFilter("employeeKeys == employeeKeysParam");
+        query.declareParameters("Key employeeKeysParam");
         List<ContactInfo> ci = (List<ContactInfo>) query.execute(e.getKey());
 }}}
-
+</wiki:comment>
 ==Duplikace asociací==
 Toto je nejlepší řešení pokud potřebujeme získávat entity z obou stran asociace.
 {{{
