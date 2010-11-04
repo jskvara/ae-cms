@@ -96,7 +96,7 @@ public class ContactInfo {
 
 @PersistenceCapable
 public class Employee {
-@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
         private Key key;
         
         @Persistent
