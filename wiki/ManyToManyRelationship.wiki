@@ -91,7 +91,7 @@ public class ContactInfo {
         private Key key;
         
         @Persistent
-        private List<Key> employees;
+        private List<Key> employeeKeys;
 }
 
 @PersistenceCapable
@@ -100,40 +100,32 @@ public class Employee {
         private Key key;
         
         @Persistent
-        private List<Key> contactInfos;
+        private List<Key> contactInfoKeys;
 }
 }}}
 
 Musíme se sami postarat o nastavení asociací:
 {{{
 public void addContactInfo(ContactInfo contactInfo) {
-        contactInfos.add(contactInfo.getKey());
-        contactInfo.getEmployees().add(getKey());
+        this.contactInfoKeys.add(contactInfo.getKey());
+        contactInfo.getEmployeeKeys().add(this.getKey());
 }
 
 public void removeContactInfo(ContactInfo contactInfo) {
-        contactInfos.remove(contactInfo.getKey());
-        contactInfo.getContactInfos().remove(getKey());
+        contactInfoKeys.remove(contactInfo.getKey());
+        contactInfo.getEmployeeKeys().remove(this.getKey());
 }
 }}}
 
 Získání je stejné na obou stranách:
 {{{
-        Employee e = entityManager.find(Employee.class, id);
+        Employee e = pm.getObjectById(Employee.class, id);
 
-        Query query = pm.newQuery(ContactInfo.class);
-        query.setFilter("employeeKey == employeeKeyParam");
-        query.declareParameters("Key employeeKeyParam");
+        List<ContactInfo> cis = new ArrayList<ContactInfo>();
+        for (Key ciKey : e.getContactInfoKeys()) {
+            ContactInfo ci = pm.getObjectById(ContactInfo.class, ciKey);
+            cis.add(ci);
+        }
 
-        List<ContactInfo> results = (List<ContactInfo>) query.execute(e.getEmployees());
-}}}
-
-{{{
-        ContactInfo ci = entityManager.find(ContactInfo.class, id);
-
-        Query query = pm.newQuery(Employee.class);
-        query.setFilter("contactInfoKey == contactInfoKeyParam");
-        query.declareParameters("Key contactInfoKeyParam");
-
-        List<ContactInfo> results = (List<ContactInfo>) query.execute(ci.getContactInfos());
+        return cis;
 }}}
