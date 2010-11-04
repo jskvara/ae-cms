@@ -1,6 +1,7 @@
 =Ukládání dat=
 <wiki:comment>
  a rozdily mezi JPA a JDO
+kazda entita musi mit svuj klic
 </wiki:comment>
 
 ==JDO==
