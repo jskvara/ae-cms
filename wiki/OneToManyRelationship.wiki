@@ -114,6 +114,7 @@ public class Employee {
 Získání `ContactInfo` pro každý klíč z kolekce:
 {{{
         Employee e = pm.getObjectById(Employee.class, key);
+
         ArrayList<ContactInfo> cis = new ArrayList<ContactInfo>();
         for (Key contactInfoKey : e.getContactInfos()) {
                 ContactInfo ci = entityManager.find(ContactInfo.class, contactInfoKey);
