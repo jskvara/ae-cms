@@ -30,6 +30,8 @@ Získání `ContactInfo`:
 Musíme použít `size()` aby byly položky dostupné i po uzavření transakce.
 </wiki:comment>
 
+Kompletní zdrojové kódy: https://github.com/jskvara/ae-sources/tree/master/oneToManyOwned/
+
 ==Vlastněná obousměrná (Owned bidirectional) asociace==
 Obousměrnou asociaci použijeme pokud chceme přistupovat k entitám navzájem (z entity `Employee` chceme získat `ContactInfo` a z entity `ContactInfo` chceme získat `Employee`).
 
@@ -60,6 +62,8 @@ Získání druhé strany asociace, chceme `Employee` z entity `ContactInfo`:
 	Employee e = ci.getEmployee();
 }}}
 Obě operace musí být provedeny v transakci a aby se entita `Employee` byla použitelná i po uzavření transakce je nutné na ní zavolat getter.
+
+Kompletní zdrojové kódy: https://github.com/jskvara/ae-sources/tree/master/oneToManyOwnedBidirectional/
 
 ==Nevlastněná (Unowned) asociace==
 Místo kolekce entit použijeme kolekci klíčů entit.
@@ -94,6 +98,8 @@ Získání kolekce `ContactInfo` podle klíče z entity `Employee`:
 }}}
 Jedním dotazem vybereme všechny entity `ContactInfo`.
 
+Kompletní zdrojové kódy: https://github.com/jskvara/ae-sources/tree/master/oneToManyUnownedKeyInChild/
+
 ===Kolekce klíčů v předkovi===
 {{{
 @PersistenceCapable
@@ -124,6 +130,8 @@ Získání `ContactInfo` pro každý klíč z kolekce:
         return cis;
 }}}
 Pro každý klíč z kolekce se provede jeden dotaz, tento způsob je méně efektivní.
+
+Kompletní zdrojové kódy: https://github.com/jskvara/ae-sources/tree/master/oneToManyUnownedKeysInParent/
 
 ===Vztahová entita===
 Toto se hodí pro složitější struktury nebo pokud nám jde hlavně o klíče a ne celé entity.
