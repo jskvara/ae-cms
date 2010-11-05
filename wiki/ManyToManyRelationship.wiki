@@ -54,6 +54,8 @@ Výběr z databáze:
 }}}
 Je potřeba dotaz pro každou entitu `ContactInfo`.
 
+Kompletní zdrojové kódy: https://github.com/jskvara/ae-sources/tree/master/manyToManyRelationshipEntity/
+
 <wiki:comment>
 ==Kolekce klíčů v předkovi==
 Toto řešení je vhodné, pokud chceme často získávat všechny potomky (`ContactInfo`). 
@@ -130,3 +132,5 @@ Získání je stejné na obou stranách:
 
         return cis;
 }}}
+
+Kompletní zdrojové kódy: https://github.com/jskvara/ae-sources/tree/master/manyToManyDuplication/
