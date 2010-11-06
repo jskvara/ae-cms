@@ -6,4 +6,5 @@
   * [OneToManyRelationship Asociace One-to-Many]
   * [ManyToManyRelationship Asociace Many-to-Many]
  * [Guice Google guice]
+ * [ZobrazovaniDat Zobrazování dat]
  * [UzitecneOdkazy Užitečné odkazy]
