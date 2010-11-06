@@ -1,0 +1,3 @@
+=JSP=
+
+Pro správné fungování [http://download.oracle.com/javaee/1.4/tutorial/doc/JSPIntro7.html EL: expression language] (např. ${sessionScope.cart.}) je potřeba do každé stránky přidat: `<%@page isElIgnored="false" %>`
