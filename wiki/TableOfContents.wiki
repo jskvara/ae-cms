@@ -8,4 +8,5 @@
  * [Guice Google guice]
  * [ZobrazovaniDat Zobrazování dat]
   * [JSP JSP]
+  * [JSF JSF]
  * [UzitecneOdkazy Užitečné odkazy]
