@@ -9,4 +9,5 @@
  * [ZobrazovaniDat Zobrazování dat]
   * [JSP JSP]
   * [JSF JSF]
+ * [Aplikace Aplikace]
  * [UzitecneOdkazy Užitečné odkazy]
