@@ -1,8 +1,10 @@
 = Aplikace =
 
-==TodoList==
+== TodoList ==
 Jedná se o jednoduchou aplikaci pro zobrazování úkolů. Aplikace používá jedinou entitu TodoEntity, pro ukládání používá JDO, pro propojení service a DAO tříd guice a pro zobrazování dat JSP.
 
 Online ukázka: http://todolistae.appspot.com/
+
 Zdrojové soubory: https://github.com/jskvara/ae-sources/tree/master/TodoList/
+
 War: http://code.google.com/p/ae-cms/downloads/detail?name=TodoList.war
