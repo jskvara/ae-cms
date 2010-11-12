@@ -1,6 +1,7 @@
 =JSP=
 
-Pro správné fungování [http://download.oracle.com/javaee/1.4/tutorial/doc/JSPIntro7.html EL: expression language] (např. ${sessionScope.cart.}) je potřeba do každé JSP stránky přidat:
+== Expression language ==
+Pro správné fungování [http://download.oracle.com/javaee/1.4/tutorial/doc/JSPIntro7.html Expression language] (např. ${sessionScope.cart.}) je potřeba do každé JSP stránky přidat:
 {{{
 <%@page isElIgnored="false" %>
 }}}
