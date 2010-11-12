@@ -40,7 +40,8 @@ http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd">
   <function>
 	  <name>formatDate</name>
 	  <function-class>jstl.JstlFunctions</function-class>
-	  <function-signature>java.lang.String formatDate(java.util.Date, java.lang.String)</function-signature>
+	  <function-signature>java.lang.String formatDate(java.util.Date,
+java.lang.String)</function-signature>
   </function>
 </taglib>
 }}}
