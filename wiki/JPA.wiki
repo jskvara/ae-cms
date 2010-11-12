@@ -1,4 +1,5 @@
 = JPA =
+Pro ukládání dat na App Engine lze použít i klasické JPA.
 
 == persistence.xml ==
 Pro nastavení se používá soubor `persistence.xml`, který se ve výsledném buildu musí nacházet ve složce `war/WEB-INF/classes/META-INF/`.
@@ -22,3 +23,5 @@ Příklad souboru `persistence.xml`:
 
 </persistence>
 }}}
+
+Více o [http://code.google.com/appengine/docs/java/datastore/usingjpa.html#Setting_Up_JPA konfiguraci JPA].
