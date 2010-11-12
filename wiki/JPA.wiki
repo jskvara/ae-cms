@@ -38,8 +38,8 @@ public final class EMF {
 
     private EMF() {}
 
-    public static EntityManagerFactory get() {
-        return emfInstance;
+    public static EntityManager get() {
+        return emfInstance.createEntityManager();
     }
 }
 }}}
