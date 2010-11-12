@@ -25,3 +25,21 @@ Příklad souboru `persistence.xml`:
 }}}
 
 Více o [http://code.google.com/appengine/docs/java/datastore/usingjpa.html#Setting_Up_JPA konfiguraci JPA].
+
+== Entity Manager Factory ==
+Jedná se o třídu pro získání instance Entity Manageru podle dané konfigurace (parametr metody `createEntityManagerFactory`).
+{{{
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+public final class EMF {
+    private static final EntityManagerFactory emfInstance =
+        Persistence.createEntityManagerFactory("transactions-optional");
+
+    private EMF() {}
+
+    public static EntityManagerFactory get() {
+        return emfInstance;
+    }
+}
+}}}
