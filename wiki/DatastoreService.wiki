@@ -1,1 +1,21 @@
 = DatastoreService =
+
+{{{
+    // Get a handle on the datastore itself
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+    // Lookup data by known key name
+    Entity userEntity = datastore.get(KeyFactory.createKey("UserInfo", email));
+
+    // Or perform a query
+    Query query = new Query("Task", userEntity);
+    query.addFilter("dueDate", Query.FilterOperator.LESS_THAN, today);
+    for (Entity taskEntity : datastore.prepare(query).asIterable()) {
+        if ("done".equals(taskEntity.getProperty("status"))) {
+            datastore.delete(taskEntity);
+        } else {
+            taskEntity.setProperty("status", "overdue");
+            datastore.put(taskEntity);
+        }
+    }
+}}}
