@@ -1,11 +1,11 @@
-= DatastoreService =
+= Datastore Service =
 
 Další možností pro práci s daty na App Engine je `DatasoterService`.
 
 == Instance DatastoreService ==
 Hlavní třídou pro práci je `DatasotreService`.
 
-Získání instance DatastoreService
+Získání instance Datastore Service
 {{{
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 }}}
