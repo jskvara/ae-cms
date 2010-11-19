@@ -62,7 +62,7 @@ public class TodoEntity implements Serializable {
 }}}
 
 == DAO ==
-Třída pro přístup k datům. Pro správnou funkčnost musí být příkazy provedeny v transakci (em.getTransaction()).
+DAO je třída pro přístup k datům ([http://en.wikipedia.org/wiki/Create,_read,_update_and_delete CRUD]). Pro správnou funkčnost musí být příkazy pro přidávání, úpravu a mazání dat provedeny v transakci (em.getTransaction()).
 {{{
     private EntityManager em = EMF.get();
 
