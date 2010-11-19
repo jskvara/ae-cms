@@ -58,8 +58,12 @@ public class TodoEntity implements Serializable {
     private Long id;
 
     private String text;
+
+    @Temporal(TemporalType.DATE)
+    private Date created;
 }
 }}}
+[https://github.com/jskvara/ae-sources/blob/master/TodoListJPA/src/java/entity/TodoEntity.java Kompletní kód]
 
 == DAO ==
 DAO je třída pro přístup k datům ([http://en.wikipedia.org/wiki/Create,_read,_update_and_delete CRUD]). Pro správnou funkčnost musí být příkazy pro přidávání, úpravu a mazání dat provedeny v transakci (em.getTransaction()).
