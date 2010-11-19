@@ -1,5 +1,5 @@
 = JPA =
-Pro ukládání dat na App Engine lze použít i klasické JPA.
+Pro ukládání dat na App Engine lze použít i klasické JPA ([http://en.wikipedia.org/wiki/Java_Persistence_API Java Persistence API]).
 
 == persistence.xml ==
 Pro nastavení se používá soubor `persistence.xml`, který se ve výsledném buildu musí nacházet ve složce `war/WEB-INF/classes/META-INF/`.
@@ -62,6 +62,7 @@ public class TodoEntity implements Serializable {
 }}}
 
 == DAO ==
+Třída pro přístup k datům. Pro správnou funkčnost musí být příkazy provedeny v transakci (em.getTransaction()).
 {{{
     private EntityManager em = EMF.get();
 
