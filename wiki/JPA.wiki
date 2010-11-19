@@ -44,4 +44,19 @@ public final class EMF {
 }
 }}}
 
-Příklad:
+Získání instance:
+{{{
+    EntityManager em = EMF.get();
+}}}
+
+== Entita ==
+Příklad Entity:
+{{{
+@Entity
+public class TodoEntity implements Serializable {
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	private String text;
+}
+}}}
