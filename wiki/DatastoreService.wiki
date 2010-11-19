@@ -1,9 +1,16 @@
 = DatastoreService =
 
-{{{
-    // Get a handle on the datastore itself
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+Další možností pro práci s daty na App Engine je `DatasoterService`.
 
+== Instance DatastoreService ==
+Hlavní třídou pro práci je `DatasotreService`.
+
+Získání instance DatastoreService
+{{{
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+}}}
+
+{{{
     // Lookup data by known key name
     Entity userEntity = datastore.get(KeyFactory.createKey("UserInfo", email));
 
