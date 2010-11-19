@@ -60,3 +60,18 @@ public class TodoEntity implements Serializable {
     private String text;
 }
 }}}
+
+== DAO ==
+{{{
+    private EntityManager em = EMF.get();
+
+    public TodoEntity get(Long id) {
+        return em.find(TodoEntity.class, id);
+    }
+
+    public void create(TodoEntity todo) {
+        em.getTransaction().begin();
+        em.persist(todo);
+        em.getTransaction().commit();
+    }
+}}}
