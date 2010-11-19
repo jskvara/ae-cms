@@ -1,1 +1,5 @@
-=Zobrazování dat=
+= Zobrazování dat =
+App Engine podporuje různé typy zobrazování dat. U některých knihoven existují omezení. Mezi nejpoužívanější patří tyto:
+ * [JSP JSP]
+ * [JSF JSF]
+ * [Velocity Velocity]
