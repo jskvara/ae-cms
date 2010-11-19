@@ -10,6 +10,7 @@ Získání instance DatastoreService
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 }}}
 
+<wiki:comment>
 {{{
     // Lookup data by known key name
     Entity userEntity = datastore.get(KeyFactory.createKey("UserInfo", email));
@@ -26,3 +27,4 @@ Získání instance DatastoreService
         }
     }
 }}}
+</wiki:comment>
