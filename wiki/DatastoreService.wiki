@@ -2,10 +2,8 @@
 
 Další možností pro práci s daty na App Engine je `DatasoterService`.
 
-== Instance DatastoreService ==
-Hlavní třídou pro práci je `DatasotreService`.
-
-Získání instance Datastore Service
+== Instance Datastore Service ==
+Hlavní třídou pro práci je `DatasotreService`, její instanci získáme takto:
 {{{
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 }}}
