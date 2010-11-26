@@ -17,3 +17,12 @@ Online ukázka: http://todolistjpa.appspot.com/
 Zdrojové soubory: https://github.com/jskvara/ae-sources/tree/master/TodoListJPA/
 
 War: http://code.google.com/p/ae-cms/downloads/detail?name=TodoListJPA.war
+
+== TodoList - Datastore Service ==
+Jedná se o stejnou aplikaci jako. Model je implementován pomocí `DatastoreService`.
+
+Online ukázka: http://todolistds.appspot.com/
+
+Zdrojové soubory: https://github.com/jskvara/ae-sources/tree/master/TodoListDS/
+
+War: http://code.google.com/p/ae-cms/downloads/detail?name=TodoListDS.war
