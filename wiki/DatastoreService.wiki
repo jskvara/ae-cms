@@ -8,6 +8,9 @@ Hlavní třídou pro práci je `DatasotreService`, její instanci získáme takt
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 }}}
 
+== Práce s entitami ==
+Pro ukládání dat se používá třída `Entity`. Ta má dvě důležité metody: `setProperty(String propertyName, Object value)` a `getProperty(String propertyName)`, pomocí nich lze nastavit hodnoty a o práci s entitou stará `DatastoreService`. Třída je deklarována jako `final`, takže ji nelze rozšířit.
+
 <wiki:comment>
 {{{
     // Lookup data by known key name
