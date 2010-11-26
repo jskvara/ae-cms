@@ -11,6 +11,25 @@ Hlavní třídou pro práci je `DatasotreService`, její instanci získáme takt
 == Práce s entitami ==
 Pro ukládání dat se používá třída `Entity`. Ta má dvě důležité metody: `setProperty(String propertyName, Object value)` a `getProperty(String propertyName)`, pomocí nich lze nastavit hodnoty a o práci s entitou stará `DatastoreService`. Třída je deklarována jako `final`, takže ji nelze rozšířit.
 
+Získání entity z uložiště podle klíče:
+{{{
+    try {
+        Entity entity = datastore.get(key);
+    } catch (EntityNotFoundException e) {
+        ...
+    }
+}}}
+
+Uložení entity lze provést následujícím způsobem:
+{{{
+    datastore.put(entity);
+}}}
+
+Naopak pro smazání je potřeba znát klíč:
+{{{
+    datastore.delete(key);
+}}}
+
 <wiki:comment>
 {{{
     // Lookup data by known key name
@@ -20,12 +39,6 @@ Pro ukládání dat se používá třída `Entity`. Ta má dvě důležité meto
     Query query = new Query("Task", userEntity);
     query.addFilter("dueDate", Query.FilterOperator.LESS_THAN, today);
     for (Entity taskEntity : datastore.prepare(query).asIterable()) {
-        if ("done".equals(taskEntity.getProperty("status"))) {
-            datastore.delete(taskEntity);
-        } else {
-            taskEntity.setProperty("status", "overdue");
-            datastore.put(taskEntity);
-        }
     }
 }}}
 </wiki:comment>
