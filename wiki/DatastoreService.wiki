@@ -24,7 +24,8 @@ Získání všech entit:
 {{{
     Query query = new Query("TodoEntity");
     query.addFilter(...);
-    query.asIterable();
+    List<Entity> entities = datastore.prepare(query).
+        asList(FetchOptions.Builder.withLimit(100));
 }}}
 
 Uložení entity lze provést následujícím způsobem:
