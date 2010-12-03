@@ -1,6 +1,7 @@
 = Porovnani JDO, JPA a DatastoreService =
 Pro porovnání byla naprogramována stejná aplikace, používající různé implementace modelu, DAO vrstva byla vytvořena pomocí: [JDO JDO], [JPA JPA] a [DatastoreService DatastoreService].
 
+V testech byl měřen jen čistý čas operace, aby nebyly výsledky zkresleny síťovým zpožděním a podobně. Testování probíhalo přímo na serverch App Enginu. To způsobovalo že testy byly negativně ovlivněny zátěží ostatních aplikací na uložišti. První kolo testování probíhalo v odpoledních hodinách a vlivem ostatních aplikací byly některé výsledky výrazně ovlivněny. Proto byly testy provedeny znovu v kolem půlnoci, kde k těmto odchylkám skoro nedocházelo.
 
 == Select ==
 Výběr 100 entit.
