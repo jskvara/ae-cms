@@ -5,6 +5,7 @@
   * [JDO JDO]
   * [JPA JPA]
   * [DatastoreService DatastoreService]
+  * [PorovnaniModelu Porovnani Modelu]
   * [OneToOneRelationship Asociace One-to-One]
   * [OneToManyRelationship Asociace One-to-Many]
   * [ManyToManyRelationship Asociace Many-to-Many]
