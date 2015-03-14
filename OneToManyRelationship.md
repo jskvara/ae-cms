@@ -1,0 +1,138 @@
+# Asociace One-to-Many #
+
+Tuto asociaci použijeme pokud chceme spojit jednu entitu s více (1:N).
+
+## Vlastněná (Owned) asociace ##
+Stejné jako u asociace 1:1, akorát místo `ContactInfo` použijeme kolekci.
+```
+@PersistenceCapable
+public class ContactInfo {
+	@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+}
+
+@PersistenceCapable
+public class Employee {
+@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+	
+	@Persistent
+	private List<ContactInfo> contactInfos;
+}
+```
+
+Získání `ContactInfo`:
+```
+	Employee e = pm.getObjectById(Employee.class, key);
+	List<ContactInfo> contactInfos = e.getContactInfos();
+```
+<a href='Hidden comment: 
+Musíme použít size() aby byly položky dostupné i po uzavření transakce.
+'></a>
+
+Kompletní zdrojové kódy: https://github.com/jskvara/ae-sources/tree/master/oneToManyOwned/
+
+## Vlastněná obousměrná (Owned bidirectional) asociace ##
+Obousměrnou asociaci použijeme pokud chceme přistupovat k entitám navzájem (z entity `Employee` chceme získat `ContactInfo` a z entity `ContactInfo` chceme získat `Employee`).
+
+```
+@PersistenceCapable
+public class ContactInfo {
+	@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+	
+	@Persistent
+	private Employee employee;
+}
+
+@PersistenceCapable
+public class Employee {
+@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+	
+	@Persistent(mappedBy = "employee")
+	private List<ContactInfo> contactInfos;
+}
+```
+U entity `ContactInfo` přidáme property `Employee` a ke kolekci v druhé entitě přidáme mapování: `(mappedBy = "jmenoEntity")`.
+
+Získání druhé strany asociace, chceme `Employee` z entity `ContactInfo`:
+```
+	ContactInfo ci = entityManager.find(Contact.class, id);
+	Employee e = ci.getEmployee();
+```
+Obě operace musí být provedeny v transakci a aby se entita `Employee` byla použitelná i po uzavření transakce je nutné na ní zavolat getter.
+
+Kompletní zdrojové kódy: https://github.com/jskvara/ae-sources/tree/master/oneToManyOwnedBidirectional/
+
+## Nevlastněná (Unowned) asociace ##
+Místo kolekce entit použijeme kolekci klíčů entit.
+Toto můžeme implementovat těmito způsoby:
+
+### Klíč v potomkovi ###
+```
+@PersistenceCapable
+public class ContactInfo {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+        
+        private Key employeeKey;
+}
+
+@PersistenceCapable
+public class Employee {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+}
+```
+Získání kolekce `ContactInfo` podle klíče z entity `Employee`:
+```
+        Employee e = entityManager.find(Employee.class, key);
+
+        Query query = pm.newQuery(ContactInfo.class);
+        query.setFilter("employeeKey == employeeKeyParam");
+        query.declareImports("import com.google.appengine.api.datastore.Key;"); 
+        query.declareParameters("Key employeeKeyParam");
+
+        List<ContactInfo> results = (List<ContactInfo>) query.execute(e.getKey());
+```
+Jedním dotazem vybereme všechny entity `ContactInfo`.
+
+Kompletní zdrojové kódy: https://github.com/jskvara/ae-sources/tree/master/oneToManyUnownedKeyInChild/
+
+### Kolekce klíčů v předkovi ###
+```
+@PersistenceCapable
+public class ContactInfo {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+}
+
+@PersistenceCapable
+public class Employee {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+        
+        @Persistent
+        private List<Key> contactInfos;
+}
+```
+Získání `ContactInfo` pro každý klíč z kolekce:
+```
+        Employee e = pm.getObjectById(Employee.class, key);
+
+        ArrayList<ContactInfo> cis = new ArrayList<ContactInfo>();
+        for (Key contactInfoKey : e.getContactInfos()) {
+                ContactInfo ci = entityManager.find(ContactInfo.class, contactInfoKey);
+                cis.add(ci);
+        }
+        
+        return cis;
+```
+Pro každý klíč z kolekce se provede jeden dotaz, tento způsob je méně efektivní.
+
+Kompletní zdrojové kódy: https://github.com/jskvara/ae-sources/tree/master/oneToManyUnownedKeysInParent/
+
+### Vztahová entita ###
+Toto se hodí pro složitější struktury nebo pokud nám jde hlavně o klíče a ne celé entity.
+Tento typ spojení je podrobně popsaný u vztahu Many-to-Many http://code.google.com/p/ae-cms/wiki/ManyToManyRelationship#Vztahová_entita

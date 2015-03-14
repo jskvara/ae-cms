@@ -1,0 +1,28 @@
+# Aplikace #
+
+## TodoList - JDO ##
+Jedná se o jednoduchou aplikaci pro zobrazování úkolů. Aplikace používá jedinou entitu `TodoEntity`, pro ukládání používá JDO, pro propojení service a DAO tříd guice a pro zobrazování dat JSP.
+
+Online ukázka: http://todolistae.appspot.com/
+
+Zdrojové soubory: https://github.com/jskvara/ae-sources/tree/master/TodoListJDO/
+
+War: http://code.google.com/p/ae-cms/downloads/detail?name=TodoList.war
+
+## TodoList - JPA ##
+Jedná se o stejnou aplikaci jako v předchozím případě. Rozdíl je v implementaci modelu, pro ukládání dat se používá JPA.
+
+Online ukázka: http://todolistjpa.appspot.com/
+
+Zdrojové soubory: https://github.com/jskvara/ae-sources/tree/master/TodoListJPA/
+
+War: http://code.google.com/p/ae-cms/downloads/detail?name=TodoListJPA.war
+
+## TodoList - Datastore Service ##
+Jedná se o stejnou aplikaci jako. Model je implementován pomocí `DatastoreService`.
+
+Online ukázka: http://todolistds.appspot.com/
+
+Zdrojové soubory: https://github.com/jskvara/ae-sources/tree/master/TodoListDS/
+
+War: http://code.google.com/p/ae-cms/downloads/detail?name=TodoListDS.war

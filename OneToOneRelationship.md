@@ -1,0 +1,71 @@
+# Asociace One-to-One #
+
+Tuto asociaci použijeme pokud chceme spojit dvě entity (1:1).
+
+## Vlastněná (Owned) asociace ##
+
+Objekty jsou spojeny nativně a o spojení se stará JDO. Vlastněné asociace jsou ukládány ve stejné skupině entit.
+```
+@PersistenceCapable
+public class ContactInfo {
+	@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+}
+
+@PersistenceCapable
+public class Employee {
+	@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+	
+	@Persistent
+	private ContactInfo contactInfo;
+}
+```
+<a href='Hidden comment: 
+ContactInfo getContactInfo() {
+return contactInfo;
+}
+
+void setContactInfo(ContactInfo contactInfo) {
+this.contactInfo = contactInfo;
+}
+'></a>
+Důležité je zde, že `Employee` má parametr typu `ContactInfo`. Aby toto spojení fungovalo primární klíč musí být typu `Key`.
+
+Získání `ContactInfo`:
+```
+	Employee e = pm.getObjectById(Employee.class, key);
+	ContactInfo ci = e.getContactInfo();
+```
+
+Kompletní zdrojové kódy: https://github.com/jskvara/ae-sources/tree/master/oneToOneOwned/
+
+## Nevlastněná (Unowned) asociace ##
+
+Nevlastněné asociace použijeme pokud se chceme o asociace starat sami. JDO nekontroluje referenční integritu a  všechna spojení musíme zařídit sami. Výhoda spočívá v ukládání entit do nezávislých skupin entit, což může být výhodné, pokud se entity mění velmi často. Více zde: [http://code.google.com/appengine/docs/java/datastore/relationships.html#Unowned\_Relationships](http://code.google.com/appengine/docs/java/datastore/relationships.html#Unowned_Relationships)
+
+```
+@PersistenceCapable
+public class ContactInfo {
+	@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+}
+
+@PersistenceCapable
+public class Employee {
+	@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+	
+	@Persistent
+	private Key contactInfoKey;
+}
+```
+Zde použijeme místo typu `ContactInfo` klíč entity.
+
+Získání `ContactInfo`:
+```
+	Employee e = pm.getObjectById(Employee.class, key);
+	ContactInfo ci = pm.getObjectById(ContactInfo.class, e.getContactInfoKey());
+```
+
+Kompletní zdrojové kódy: https://github.com/jskvara/ae-sources/tree/master/oneToOneUnowned/

@@ -1,0 +1,136 @@
+# Asociace Many-to-Many #
+
+Tuto asociaci použijeme pokud chceme spojit více entit s více (M:N).
+Tento typ lze implementovat pouze nevlastněnou asociací.
+Lze toho docílit těmito způsoby:
+
+## Vztahová entita ##
+Tento přístup se používá u relačních databází. Kvůli absenci konstrukce `join` ale musíme použít více dotazů do databáze.
+
+```
+@PersistenceCapable
+public class ContactInfo {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+}
+
+@PersistenceCapable
+public class Employee {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+}
+
+@PersistenceCapable
+public class Relationship {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+        
+        @Persistent
+        private Key employeeKey;
+        
+        @Persistent
+        private Key contactInfoKey;
+}
+```
+Vztahová entita může obsahovat i další užitečné sloupce, jako například datum.
+
+Výběr z databáze:
+```
+        Employee e = pm.getObjectById(Employee.class, key);
+
+        Query query = pm.newQuery(Relationship.class);
+        query.setFilter("employeeKey == employeeKeyParam");
+        query.declareImports("import com.google.appengine.api.datastore.Key;");
+        query.declareParameters("Key employeeKeyParam");
+        List<Relationship> relationships = (List<Relationship>) query.execute(e.getKey());
+        
+        List<ContactInfo> cis = new ArrayList<ContactInfo>();
+        for (Relationship r : relationships) {
+                ContactInfo ci = entityManager.find(ContactInfo.class, r.getContactInfoKey());
+                cis.add(ci);
+        }
+        
+        return cis;
+```
+Je potřeba dotaz pro každou entitu `ContactInfo`.
+
+Kompletní zdrojové kódy: https://github.com/jskvara/ae-sources/tree/master/manyToManyRelationshipEntity/
+
+<a href='Hidden comment: 
+==Kolekce klíčů v předkovi==
+Toto řešení je vhodné, pokud chceme často získávat všechny potomky (ContactInfo).
+```
+@PersistenceCapable
+public class ContactInfo {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+        
+        @Persistent
+        private List<Key> employeeKeys;
+}
+
+@PersistenceCapable
+public class Employee {
+@PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+}
+```
+Získání všech potomků:
+```
+        Employee e = pm.getObjectById(Employee.class, key);
+        
+        Query query = pm.newQuery(ContactInfo.class);
+        query.setFilter("employeeKeys == employeeKeysParam");
+        query.declareParameters("Key employeeKeysParam");
+        List<ContactInfo> ci = (List<ContactInfo>) query.execute(e.getKey());
+```
+'></a>
+## Duplikace asociací ##
+Toto je nejlepší řešení pokud potřebujeme získávat entity z obou stran asociace.
+```
+@PersistenceCapable
+public class ContactInfo {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+        
+        @Persistent
+        private List<Key> employeeKeys;
+}
+
+@PersistenceCapable
+public class Employee {
+        @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+        private Key key;
+        
+        @Persistent
+        private List<Key> contactInfoKeys;
+}
+```
+
+Musíme se sami postarat o nastavení asociací:
+```
+public void addContactInfo(ContactInfo contactInfo) {
+        this.contactInfoKeys.add(contactInfo.getKey());
+        contactInfo.getEmployeeKeys().add(this.getKey());
+}
+
+public void removeContactInfo(ContactInfo contactInfo) {
+        contactInfoKeys.remove(contactInfo.getKey());
+        contactInfo.getEmployeeKeys().remove(this.getKey());
+}
+```
+
+Získání je stejné na obou stranách:
+```
+        Employee e = pm.getObjectById(Employee.class, id);
+
+        List<ContactInfo> cis = new ArrayList<ContactInfo>();
+        for (Key ciKey : e.getContactInfoKeys()) {
+            ContactInfo ci = pm.getObjectById(ContactInfo.class, ciKey);
+            cis.add(ci);
+        }
+
+        return cis;
+```
+
+Kompletní zdrojové kódy: https://github.com/jskvara/ae-sources/tree/master/manyToManyDuplication/

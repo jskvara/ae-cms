@@ -1,0 +1,54 @@
+# JSP #
+
+Nejjednoduší možností jak v App Enginu zobrazovat data je použití JSP.
+
+## Expression language ##
+Pro správné fungování [Expression language](http://download.oracle.com/javaee/1.4/tutorial/doc/JSPIntro7.html) (např. ${sessionScope.cart.}) je potřeba do každé JSP stránky přidat:
+```
+<%@page isElIgnored="false" %>
+```
+
+## JSTL fmt ##
+Jelikož [JSTL fmt](http://download.oracle.com/javaee/5/jstl/1.1/docs/tlddocs/) pro internacionalizaci používá pro ukládání nastavení session, takže nebude fungovat. U AppEnginu tedy máme dvě možnosti. Můžeme povolit sessions v souboru `appengine.xml`:
+```
+<sessions-enabled>true</sessions-enabled>
+```
+Druhou možností je napsat si svůj vlastní tag:
+```
+public final class JstlFunctions {
+	private JstlFunctions() {}
+
+	public static String formatDate(Date date, String pattern) {
+		return new SimpleDateFormat(pattern).format(date);
+	}
+}
+```
+[Kompletní kód](https://github.com/jskvara/ae-sources/blob/master/TodoList/src/java/jstl/JstlFunctions.java)
+
+A zaregistrovat ho ve WEB-INF/tlds/jstlFunctions.tld
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.1" xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd">
+  <tlib-version>1.0</tlib-version>
+  <short-name>jstlFunctions</short-name>
+  <uri>/WEB-INF/tlds/jstlFunctions</uri>
+  <display-name>Custom functions</display-name>
+
+  <function>
+	  <name>formatDate</name>
+	  <function-class>jstl.JstlFunctions</function-class>
+	  <function-signature>java.lang.String formatDate(java.util.Date,
+java.lang.String)</function-signature>
+  </function>
+</taglib>
+```
+[Ukázka](https://github.com/jskvara/ae-sources/blob/master/TodoList/web/WEB-INF/tlds/jstlFunctions.tld)
+
+Použití:
+```
+<%@taglib uri="/WEB-INF/tlds/jstlFunctions" prefix="f" %>
+${f:formatDate(date, "d.M.yyyy HH:mm:ss")}
+```

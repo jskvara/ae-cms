@@ -1,0 +1,82 @@
+# JPA #
+Pro ukládání dat na App Engine lze použít i klasické JPA ([Java Persistence API](http://en.wikipedia.org/wiki/Java_Persistence_API)).
+
+## persistence.xml ##
+Pro nastavení se používá soubor `persistence.xml`, který se ve výsledném buildu musí nacházet ve složce `war/WEB-INF/classes/META-INF/`.
+
+Příklad souboru `persistence.xml`:
+```
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0">
+
+    <persistence-unit name="transactions-optional">
+        <provider>org.datanucleus.store.appengine.jpa.DatastorePersistenceProvider</provider>
+        <properties>
+            <property name="datanucleus.NontransactionalRead" value="true"/>
+            <property name="datanucleus.NontransactionalWrite" value="true"/>
+            <property name="datanucleus.ConnectionURL" value="appengine"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>
+```
+
+Více o [konfiguraci JPA](http://code.google.com/appengine/docs/java/datastore/usingjpa.html#Setting_Up_JPA).
+
+## Entity Manager Factory ##
+Jedná se o třídu pro získání instance Entity Manageru podle dané konfigurace (parametr metody `createEntityManagerFactory`).
+```
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+public final class EMF {
+    private static final EntityManagerFactory emfInstance =
+        Persistence.createEntityManagerFactory("transactions-optional");
+
+    private EMF() {}
+
+    public static EntityManager get() {
+        return emfInstance.createEntityManager();
+    }
+}
+```
+
+Získání instance:
+```
+    EntityManager em = EMF.get();
+```
+
+## Entita ##
+Příklad Entity:
+```
+@Entity
+public class TodoEntity implements Serializable {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String text;
+
+    @Temporal(TemporalType.DATE)
+    private Date created;
+}
+```
+[Kompletní kód](https://github.com/jskvara/ae-sources/blob/master/TodoListJPA/src/java/entity/TodoEntity.java)
+
+## DAO ##
+DAO je třída pro přístup k datům ([CRUD](http://en.wikipedia.org/wiki/Create,_read,_update_and_delete)). Pro správnou funkčnost musí být příkazy pro přidávání, úpravu a mazání dat provedeny v transakci (em.getTransaction()).
+```
+    private EntityManager em = EMF.get();
+
+    public TodoEntity get(Long id) {
+        return em.find(TodoEntity.class, id);
+    }
+
+    public void create(TodoEntity todo) {
+        em.getTransaction().begin();
+        em.persist(todo);
+        em.getTransaction().commit();
+    }
+```
